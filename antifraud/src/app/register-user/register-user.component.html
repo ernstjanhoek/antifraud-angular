@@ -1,6 +1,7 @@
   <h2>Register a new user</h2>
-  <form>
-    <input type="text" placeholder="enter username" #username><br>
+  <form [formGroup]="registerUserForm" (submit)="registerUser()">
+    <input type="text" placeholder="enter your name" #username><br>
+    <input type="text" placeholder="enter your username" #username><br>
     <input type="password" placeholder="enter password" #password><br>
-    <button class="primary" type="button">Register</button>
+    <button class="primary" type="submit">Register</button>
   </form>
