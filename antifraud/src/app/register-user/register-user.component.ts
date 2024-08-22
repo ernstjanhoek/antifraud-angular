@@ -14,7 +14,7 @@ import {UserService} from "../user.service";
 
 export class RegisterUserComponent {
   registerUserForm = new FormGroup({
-    name: new FormControl(""),
+    name:  new FormControl(""),
     username: new FormControl(""),
     password: new FormControl("")
   });
@@ -22,6 +22,11 @@ export class RegisterUserComponent {
   userService = inject(UserService);
 
   registerUser() {
+
+    console.log(this.registerUserForm.value.name);
+    console.log(this.registerUserForm.value.username);
+    console.log(this.registerUserForm.value.password);
+
     this.userService.registerUser(
       this.registerUserForm.value.name ?? '',
       this.registerUserForm.value.username ?? '',
