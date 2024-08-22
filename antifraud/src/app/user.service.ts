@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {UserData} from "./user-data";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,23 @@ import {UserData} from "./user-data";
 export class UserService {
   readonly url: string = "http://localhost:28852";
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+  }
+
+  async checkCredentials(username: string, password: string)  {
+    const encodedCredentials = btoa(`${username}:${password}`);
+    this.http.get(this.url + "/api/auth/cred", {
+      headers: {
+        'Authorization': `Basic ${encodedCredentials}`
+      },
+      withCredentials: true,
+      observe: 'response'
+    }).subscribe(res => {
+      console.log("message from credential observer:");
+      console.log(res.status);
+      console.log(res.statusText);
+    });
+  }
 
   async registerUser(name_value: string, username_value: string, password_value: string): Promise<UserData> {
     const response = await fetch(this.url + "/api/auth/user", {

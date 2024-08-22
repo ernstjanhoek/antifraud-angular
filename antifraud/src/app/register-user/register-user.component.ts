@@ -24,7 +24,6 @@ export class RegisterUserComponent {
   });
 
   userService = inject(UserService);
-  resolvedReg: boolean = false;
   userData: Promise<UserData> | undefined;
 
   registerUser() {
