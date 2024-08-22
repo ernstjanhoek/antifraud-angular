@@ -1,7 +1,11 @@
-  <h2>Register a new user</h2>
-  <form [formGroup]="registerUserForm" (submit)="registerUser()">
-    <input type="text" placeholder="enter your name" formControlName="name"><br>
-    <input type="text" placeholder="enter your username" formControlName="username"><br>
-    <input type="password" placeholder="enter password" formControlName="password"><br>
-    <button class="primary" type="submit">Register</button>
-  </form>
+<h2>Register a new user</h2>
+<form [formGroup]="registerUserForm" (submit)="registerUser()">
+  <input type="text" placeholder="enter your name" formControlName="name"><br>
+  <input type="text" placeholder="enter your username" formControlName="username"><br>
+  <input type="password" placeholder="enter password" formControlName="password"><br>
+  <button class="primary" type="submit">Register</button>
+</form>
+
+<p>Hello {{ (userData | async)?.username }}</p>
+<p>You're name is {{ (userData | async)?.name }}</p>
+<p>Your authority is {{ (userData | async)?.authority }}</p>
