@@ -1,0 +1,9 @@
+<h2>Admin Panel</h2>
+@if(userService.currentUser | async; as user ) {
+  @if(user?.role != "ADMINISTRATOR") {
+    <p>Warning! User is not logged in as Administrator</p>
+  }
+}
+@if(userService.encodedCredentials == undefined) {
+  <p>Warning! User credentials not found</p>
+}

@@ -9,7 +9,12 @@ import {catchError, map, Observable, of, pipe} from "rxjs";
 
 export class UserService {
   readonly url: string = "http://localhost:28852";
-  private currentUser: UserData | null = null;
+  currentUser: Observable<UserData> | undefined;
+  encodedCredentials: string | undefined;
+
+  getCurrentUser(): Observable<UserData> | undefined {
+    return this.currentUser;
+  }
 
   constructor(private http: HttpClient) {
   }
@@ -32,8 +37,29 @@ export class UserService {
     );
   }
 
-  login(name_value: string, username_value: string, password_value: string) {
-
+  login(username_value: string, password_value: string) {
+    const encodedCredentials = btoa(`${username_value}:${password_value}`);
+    this.currentUser = this.http.get<UserData>(this.url + "/api/auth/cred", {
+        headers: {
+          'Authorization': `Basic ${encodedCredentials}`
+        }, observe: 'response'
+      }
+    )
+      .pipe(map((res: HttpResponse<UserData>) => {
+        console.log(res.body?.id);
+        console.log(res.body?.username);
+        console.log(res.body?.role);
+          return {
+            id: res.body?.id ?? 0,
+            name: res.body?.name ?? 'Error',
+            username: res.body?.username ?? 'Error',
+            role: res.body?.role ?? 'Error'
+          } as UserData
+        }
+      ));
+    this.encodedCredentials = encodedCredentials;
+    console.log(this.currentUser.valueOf());
+    console.log(this.encodedCredentials);
   }
 
   registerUser(name_value: string, username_value: string, password_value: string): Observable<UserData> {
@@ -50,14 +76,14 @@ export class UserService {
           role: response.body?.role ?? ''
         } as UserData
       }),
-       catchError((err) => {
-         console.log(err);
-         return of({
-           role: "err",
-           id: 0,
-           name: "err",
-           username: "err"
-         } as UserData)
-       }));
+      catchError((err) => {
+        console.log(err);
+        return of({
+          role: "err",
+          id: 0,
+          name: "err",
+          username: "err"
+        } as UserData)
+      }));
   }
 }
