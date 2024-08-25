@@ -5,7 +5,8 @@
   <input type="password" placeholder="enter password" formControlName="password"><br>
   <button class="primary" type="submit">Register</button>
 </form>
-
-<p>Hello {{ (userData | async)?.username }}</p>
-<p>You're name is {{ (userData | async)?.name }}</p>
-<p>Your authority is {{ (userData | async)?.authority }}</p>
+@if(userData$ | async; as user) {
+<p>Hello {{ user.username }} </p>
+<p>You're name is {{ user.name }}</p>
+<p>Your authority is {{ user.role }}</p>
+}

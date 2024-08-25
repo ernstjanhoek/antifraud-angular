@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserData } from "./user-data";
-import { HttpClient } from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
+import {catchError, map, Observable, of, pipe} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -8,55 +9,55 @@ import { HttpClient } from "@angular/common/http";
 
 export class UserService {
   readonly url: string = "http://localhost:28852";
+  private currentUser: UserData | null = null;
 
   constructor(private http: HttpClient) {
   }
 
-  async checkCredentials(username: string, password: string)  {
+  checkCredentials(username: string, password: string)  {
     const encodedCredentials = btoa(`${username}:${password}`);
-    this.http.get(this.url + "/api/auth/cred", {
+    return this.http.get(this.url + "/api/auth/cred", {
       headers: {
         'Authorization': `Basic ${encodedCredentials}`
       },
-      withCredentials: true,
       observe: 'response'
-    }).subscribe(res => {
-      console.log("message from credential observer:");
-      console.log(res.status);
-      console.log(res.statusText);
-    });
-  }
-
-  async registerUser(name_value: string, username_value: string, password_value: string): Promise<UserData> {
-    const response = await fetch(this.url + "/api/auth/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: name_value,
-        username: username_value,
-        password: password_value
+    }).pipe(
+      map((response: HttpResponse<any>) => {
+        return response.status === 200;
+      }),
+      catchError((error) => {
+        console.log(error);
+        return of(false);
       })
-    })
-
-    console.log("STATUS: " + response.status);
-
-    const responseData = await response.json();
-
-    return {
-      authority: responseData.role,
-      id: responseData.id,
-      name: responseData.name,
-      username: responseData.username
-    };
+    );
   }
 
-  async getUsers() {
-    const response = await fetch(this.url + "/api/auth/list");
+  login(name_value: string, username_value: string, password_value: string) {
 
-    const responseData = await response.json();
+  }
 
-    console.log(response.status);
+  registerUser(name_value: string, username_value: string, password_value: string): Observable<UserData> {
+    return this.http.post<UserData>(this.url + "/api/auth/user", {
+      name: name_value,
+      username: username_value,
+      password: password_value
+    }, { observe: 'response'}).pipe(
+      map((response: HttpResponse<UserData>) => {
+        return {
+          id: response.body?.id ?? 0,
+          name: response.body?.name ?? '',
+          username: response.body?.username ?? '',
+          role: response.body?.role ?? ''
+        } as UserData
+      }),
+       catchError((err) => {
+         console.log(err);
+         return of({
+           role: "err",
+           id: 0,
+           name: "err",
+           username: "err"
+         } as UserData)
+       }));
   }
 }

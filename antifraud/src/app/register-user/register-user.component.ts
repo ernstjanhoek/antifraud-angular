@@ -3,6 +3,7 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {UserService} from "../user.service";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {UserData} from "../user-data";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-register-user',
@@ -24,18 +25,18 @@ export class RegisterUserComponent {
   });
 
   userService = inject(UserService);
-  userData: Promise<UserData> | undefined;
+  userData$: Observable<UserData> | undefined;
 
   registerUser() {
-
     console.log(this.registerUserForm.value.name);
     console.log(this.registerUserForm.value.username);
     console.log(this.registerUserForm.value.password);
 
-    this.userData = this.userService.registerUser(
+    this.userData$ = this.userService.registerUser(
       this.registerUserForm.value.name ?? '',
       this.registerUserForm.value.username ?? '',
       this.registerUserForm.value.password ?? ''
     );
+    console.log(this.userData$);
   }
 }
