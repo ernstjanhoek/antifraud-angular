@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {UserService} from "./user.service";
-import {map, Observable} from "rxjs";
+import {catchError, map, Observable} from "rxjs";
 import {UserData} from "./user-data";
 
 @Injectable({
@@ -21,7 +21,11 @@ export class AdminService {
       observe: 'response'
     })
       .pipe(map((res:HttpResponse<UserData[]>) => {
-        return res.body;
+        return res.body || [];
+      }),
+      catchError(error => {
+        console.log(error);
+        return []
       }))
   }
 }
