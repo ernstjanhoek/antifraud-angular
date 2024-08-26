@@ -1,5 +1,11 @@
 <td>{{ username }}</td>
-<td>{{ name }}</td>
 <td>{{ role }}</td>
 <td><button (click)="lockUser()">Lock</button></td>
 <td><button (click)="unlockUser()">Unlock</button></td>
+<td>
+  <input type="radio" name="role_{{ username }}" value="MERCHANT" [(ngModel)]="new_role"> Merchant
+  <input type="radio" name="role_{{ username }}" value="SUPPORT" [(ngModel)]="new_role"> Support
+</td>
+<td>
+  <button (click)="changeUserRole(username, new_role)">Change Role</button>
+</td>

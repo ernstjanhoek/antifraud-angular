@@ -28,4 +28,32 @@ export class AdminService {
         return []
       }))
   }
+
+  setUserAccess(username_value: string, operation_value: string) {
+    this.http.put(this.userService.url + "/api/auth/access", {
+      username: username_value,
+      operation: operation_value
+    },
+      {
+        headers: {
+          'Authorization' : `Basic ${this.userService.encodedCredentials}`
+        }
+      }).subscribe(
+      response => console.log(response)
+    )
+  }
+
+  changeUserRole(username_value: string, new_role: string) {
+    this.http.put(this.userService.url + "/api/auth/role", {
+        username: username_value,
+        role: new_role
+      },
+      {
+        headers: {
+          'Authorization': `Basic ${this.userService.encodedCredentials}`
+        }
+      }).subscribe(
+      response => console.log(response)
+    )
+  }
 }
