@@ -31,4 +31,8 @@ export class UserCellComponent {
   changeUserRole(username: string, newRole: string) {
     this.adminService.changeUserRole(username, newRole);
   }
+
+  deleteUser(username: string) {
+    this.adminService.deleteUser(username);
+  }
 }

@@ -56,4 +56,15 @@ export class AdminService {
       response => console.log(response)
     )
   }
+
+  deleteUser(username_value: string) {
+    this.http.delete(this.userService.url + "/api/auth/user/" + username_value,
+      {
+        headers: {
+          'Authorization': `Basic ${this.userService.encodedCredentials}`
+        }
+      }).subscribe(
+      response => console.log(response)
+    )
+  }
 }

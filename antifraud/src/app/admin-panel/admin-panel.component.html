@@ -1,4 +1,4 @@
-<h2>Admin Panel</h2>
+<h3>Admin Panel</h3>
 @if(adminService.userService.currentUser | async; as user ) {
   @if(user?.role != "ADMINISTRATOR") {
     <p>Warning! User is not logged in as Administrator</p>

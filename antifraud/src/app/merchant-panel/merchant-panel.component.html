@@ -1,0 +1,16 @@
+<h3>Merchant Panel</h3>
+@if(merchantService.userService.currentUser | async; as user ) {
+  @if(user?.role != "MERCHANT") {
+    <p>Warning! User is not logged in as Merchant</p>
+  }
+}
+
+@if(merchantService.userService.encodedCredentials == undefined) {
+  <p>Warning! User credentials not found</p>
+}
+
+<form [formGroup]="transactionForm" (submit)="makeTransaction()">
+  <input type="text" placeholder="enter card number" formControlName="card_number"><br>
+  <input type="number" placeholder="enter transaction amount" formControlName="amount"><br>
+  <button class="primary" type="submit">Make transaction</button>
+</form>
