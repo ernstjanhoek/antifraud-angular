@@ -13,16 +13,9 @@
 
 @if(userList != undefined) {
   <table>
-    <thead>
-    <th>username</th>
-    <th>name</th>
-    <th>role</th>
-    </thead>
     <tbody>
     <tr *ngFor="let user of userList | async">
-      <td>{{user.username}}</td>
-      <td>{{user.name}}</td>
-      <td>{{user.role}}</td>
+      <app-user-cell [username]="user.username" [name]="user.name" [role]="user.role"></app-user-cell>
     </tr>
     </tbody>
   </table>

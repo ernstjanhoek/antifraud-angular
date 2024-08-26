@@ -12,12 +12,7 @@ export class UserService {
   currentUser: Observable<UserData> | undefined;
   encodedCredentials: string | undefined;
 
-  getCurrentUser(): Observable<UserData> | undefined {
-    return this.currentUser;
-  }
-
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   checkCredentials(username: string, password: string)  {
     const encodedCredentials = btoa(`${username}:${password}`);
