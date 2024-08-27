@@ -10,13 +10,13 @@ export class MerchantService {
 
   constructor(private http: HttpClient) {}
 
-  makeTransaction(amount_value: number, card_number: string) {
+  makeTransaction(amount_value: number, card_number: string, ip_value: string, region_value: string) {
     this.http.post(this.userService.url + "/api/antifraud/transaction",
       {
         amount: amount_value,
-        ip: "127.0.0.1",
-        card: card_number,
-        region: "ECA",
+        ip: ip_value,
+        number: card_number,
+        region: region_value,
         date: new Date()
       },
       {

@@ -11,6 +11,16 @@
 
 <form [formGroup]="transactionForm" (submit)="makeTransaction()">
   <input type="text" placeholder="enter card number" formControlName="card_number"><br>
-  <input type="number" placeholder="enter transaction amount" formControlName="amount"><br>
+  <input type="number" step="100" placeholder="enter transaction amount" formControlName="amount"><br>
+  <select  formControlName="region">
+    <option value="" disabled>Please select a region</option>
+    <option value="EAP">East Asia and Pacific</option>
+    <option value="ECA">Europe and Central Asia</option>
+    <option value="HIC">High Income Countries</option>
+    <option value="LAC">Latin America and Caribbean</option>
+    <option value="MENA">Middle East and North Africa</option>
+    <option value="SSA">Sub Sahara Africa</option>
+  </select><br>
+  <input type="text" placeholder="enter the ip address" formControlName="ip"><br>
   <button class="primary" type="submit">Make transaction</button>
 </form>

@@ -21,11 +21,16 @@ export class MerchantPanelComponent {
   merchantService: MerchantService = inject(MerchantService);
   transactionForm: FormGroup =  new FormGroup({
     card_number: new FormControl(""),
-    amount: new FormControl("")
+    amount: new FormControl(""),
+    ip: new FormControl(""),
+    region: new FormControl("")
   });
 
 
   makeTransaction() {
-    this.merchantService.makeTransaction(this.transactionForm.value.amount, this.transactionForm.value.card_number);
+    this.merchantService.makeTransaction(this.transactionForm.value.amount,
+      this.transactionForm.value.card_number,
+      this.transactionForm.value?.ip,
+      this.transactionForm.value?.region);
   }
 }

@@ -44,6 +44,10 @@ export class UserService {
         console.log(res.body?.id);
         console.log(res.body?.username);
         console.log(res.body?.role);
+
+        this.encodedCredentials = encodedCredentials;
+        console.log(this.encodedCredentials);
+
           return {
             id: res.body?.id ?? 0,
             name: res.body?.name ?? 'Error',
@@ -52,9 +56,8 @@ export class UserService {
           } as UserData
         }
       ));
-    this.encodedCredentials = encodedCredentials;
+
     console.log(this.currentUser.valueOf());
-    console.log(this.encodedCredentials);
   }
 
   registerUser(name_value: string, username_value: string, password_value: string): Observable<UserData> {

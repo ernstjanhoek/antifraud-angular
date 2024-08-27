@@ -45,7 +45,7 @@ export class SupportService {
       )
   }
 
-  getSuspiciousIps(): Observable<Ip> {
+  getSuspiciousIps(): Observable<Ip[]> {
     return this.http.get<Ip[]>(`${this.userService.url}${this.tx}/suspicious-ip`, {
       headers: {
         'Authorization' : `Basic ${this.userService.encodedCredentials}`
@@ -63,8 +63,8 @@ export class SupportService {
 
   addStolenCard(card_number: string) {
     this.http.post(`${this.userService.url}${this.tx}/stolencard`, {
-      number: card_number
-    },
+        number: card_number
+      },
       {
         headers: {
           'Authorization': `Basic ${this.userService.encodedCredentials}`
@@ -102,5 +102,9 @@ export class SupportService {
           console.log(error);
           return []
         }))
+  }
+
+  getTransactions() {
+
   }
 }
