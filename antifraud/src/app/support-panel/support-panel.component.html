@@ -14,11 +14,30 @@
   <button class="primary" type="submit">Add IP address</button>
 </form>
 
-
-
 <form [formGroup]="stolenCardForm" (submit)="addStolenCard()">
   <input type="text" placeholder="enter stolen card number" formControlName="number"><br>
   <button class="primary" type="submit">Add Card</button>
 </form>
+
+
+<button (click)="getTransactions()">List transactions</button>
+
+@if(transactionList != undefined) {
+<table>
+<tbody>
+<tr *ngFor="let tx of transactionList | async">
+<app-tx-cell
+  [transactionId]="tx.transactionId"
+  [amount]="tx.amount"
+  [ip]="tx.ip"
+  [number]="tx.number"
+  [region]="tx.region"
+  [date]="tx.date"
+  [result]="tx.result">
+</app-tx-cell>
+</tr>
+</tbody>
+</table>
+}
 
 

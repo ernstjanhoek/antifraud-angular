@@ -1,10 +1,12 @@
 import {Component, inject} from '@angular/core';
 import {SupportService} from "../support.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {AsyncPipe} from "@angular/common";
+import {AsyncPipe, NgForOf} from "@angular/common";
 import {Observable} from "rxjs";
 import {Ip} from "../ip";
 import {Card} from "../card";
+import {Transaction} from "../transaction";
+import {TxCellComponent} from "../tx-cell/tx-cell.component";
 
 @Component({
   selector: 'app-support-panel',
@@ -12,7 +14,9 @@ import {Card} from "../card";
   imports: [
     AsyncPipe,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgForOf,
+    TxCellComponent
   ],
   templateUrl: './support-panel.component.html',
   styleUrl: './support-panel.component.css'
@@ -48,7 +52,9 @@ export class SupportPanelComponent {
     this.supportService.addStolenCard(this.stolenCardForm.value?.number);
   }
 
+  transactionList: Observable<Transaction[]> | undefined;
+
   getTransactions() {
-    this.supportService.getTransactions();
+    this.transactionList = this.supportService.getTransactions();
   }
 }

@@ -4,6 +4,7 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {catchError, map, Observable} from "rxjs";
 import {Ip} from "./ip";
 import {Card} from "./card";
+import {Transaction} from "./transaction";
 
 @Injectable({
   providedIn: 'root'
@@ -104,7 +105,20 @@ export class SupportService {
         }))
   }
 
-  getTransactions() {
-
+  getTransactions(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.userService.url}${this.tx}/history`,
+      {
+        headers: {
+          'Authorization' : `Basic ${this.userService.encodedCredentials}`
+        },
+        observe: 'response'
+      })
+      .pipe(map((res:HttpResponse<Transaction[]>) => {
+        return res.body || [];
+      }),
+      catchError(error => {
+        console.log(error);
+        return [];
+      }))
   }
 }

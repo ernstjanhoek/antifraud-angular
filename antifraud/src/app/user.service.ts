@@ -41,12 +41,12 @@ export class UserService {
       }
     )
       .pipe(map((res: HttpResponse<UserData>) => {
-        console.log(res.body?.id);
-        console.log(res.body?.username);
-        console.log(res.body?.role);
+          console.log(res.body?.id);
+          console.log(res.body?.username);
+          console.log(res.body?.role);
 
-        this.encodedCredentials = encodedCredentials;
-        console.log(this.encodedCredentials);
+          this.encodedCredentials = encodedCredentials;
+          console.log(this.encodedCredentials);
 
           return {
             id: res.body?.id ?? 0,
