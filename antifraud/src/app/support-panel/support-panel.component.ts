@@ -35,13 +35,21 @@ export class SupportPanelComponent {
   suspiciousIpList: Observable<Ip[]> | undefined;
 
   getSuspiciousIps() {
-    this.suspiciousIpList = this.supportService.getSuspiciousIps();
+    if (this.suspiciousIpList == undefined) {
+      this.suspiciousIpList = this.supportService.getSuspiciousIps();
+    } else {
+      this.suspiciousIpList = undefined;
+    }
   }
 
   stolenCardList: Observable<Card[]> | undefined;
 
   getStolenCards() {
-    this.stolenCardList = this.supportService.getStolenCards();
+    if (this.stolenCardList == undefined) {
+      this.stolenCardList = this.supportService.getStolenCards();
+    } else {
+      this.stolenCardList = undefined;
+    }
   }
 
   addSuspiciousIp() {
@@ -55,6 +63,10 @@ export class SupportPanelComponent {
   transactionList: Observable<Transaction[]> | undefined;
 
   getTransactions() {
-    this.transactionList = this.supportService.getTransactions();
+    if (this.transactionList == undefined) {
+      this.transactionList = this.supportService.getTransactions();
+    } else {
+      this.transactionList = undefined;
+    }
   }
 }

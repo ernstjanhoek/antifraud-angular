@@ -16,7 +16,7 @@
 
 <button (click)="getSuspiciousIps()">List blacklisted Ips</button>
 @if(suspiciousIpList != undefined) {
-  <table>
+  <table class="standard-table">
     <tbody>
     <tr *ngFor="let ip of suspiciousIpList | async">
       <td>{{ip?.id}}</td>
@@ -33,7 +33,7 @@
 
 <button (click)="getStolenCards()">List stolen cards</button><br>
 @if(stolenCardList != undefined) {
-  <table>
+  <table class="standard-table">
     <tbody>
     <tr *ngFor="let card of stolenCardList | async">
       <td>{{card?.id}}</td>
@@ -46,7 +46,7 @@
 <button (click)="getTransactions()">List transactions</button>
 
 @if(transactionList != undefined) {
-<table>
+<table class="standard-table">
 <tbody>
 <tr *ngFor="let tx of transactionList | async">
 <app-tx-cell

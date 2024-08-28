@@ -1,4 +1,6 @@
-<h4>Feedback</h4>
-<div *ngFor="let message of lastMessages$ | async">
-  <p>Status: {{ message.statusCode }}</p>
+<div class="feedback-container">
+  <h4>Feedback</h4>
+  <div class="feedback-message" *ngFor="let message of lastMessages$ | async">
+    {{message.statusCode}}  {{message.message}}
+  </div>
 </div>

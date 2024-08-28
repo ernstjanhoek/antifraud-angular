@@ -1,1 +1,83 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+:root {
+  --primary-color: #605DC8;
+  --secondary-color: #8B89E6;
+  --accent-color: #e8e7fa;
+  --shadow-color: #E8E8E8;
+}
+
+button {
+  padding: 10px;
+  border: solid 1px var(--primary-color);
+  background: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+}
+
+input {
+  border: solid 1px var(--primary-color);
+  padding: 10px;
+  border-radius: 8px;
+  margin-right: 4px;
+  display: inline-block;
+  width: 30%;
+}
+
+select {
+  border: solid 1px var(--primary-color);
+  padding: 10px;
+  border-radius: 8px;
+  margin-right: 4px;
+  display: inline-block;
+  width: 32%;
+}
+
+
+/* General table styling */
+.standard-table {
+  width: 600px; /* Fixed table width */
+  border-collapse: collapse; /* Ensure borders collapse into a single line */
+  margin: 20px;
+  box-shadow: 0 2px 5px rgba(173, 216, 230, 0.5); /* Light blue/grayish shadow */
+}
+
+/* Table header styling */
+.standard-table thead {
+  background-color: #f2f2f2; /* Light gray background for the header */
+}
+
+.standard-table th {
+  padding: 10px; /* Padding inside header cells */
+  border-bottom: 2px solid #ddd; /* Border below header cells */
+  text-align: left; /* Align text to the left */
+}
+
+/* Table body styling */
+.standard-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Light gray background for even rows */
+}
+
+.standard-table td {
+  padding: 10px; /* Padding inside cells */
+  border-bottom: 1px solid #ddd; /* Border below cells */
+}
+
+/* Ensure columns are evenly spaced */
+.standard-table th,
+.standard-table td {
+  text-align: left; /* Align text to the left */
+  width: calc(100% / 7); /* Distribute columns evenly */
+}
+
+/* Hover effect for rows */
+.standard-table tbody tr:hover {
+  background-color: #e0f7fa; /* Light blue background on hover */
+}

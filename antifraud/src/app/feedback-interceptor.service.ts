@@ -14,7 +14,7 @@ export class FeedbackInterceptor implements HttpInterceptor {
             if (event.type === HttpEventType.Response) {
               console.log("from result")
               this.feedbackService.addMessage(
-                event.statusText,
+                JSON.stringify(event.body),
                 event.status
               );
             }
@@ -22,11 +22,18 @@ export class FeedbackInterceptor implements HttpInterceptor {
           catchError((err, caught) => {
             console.log("from error")
             this.feedbackService.addMessage(
-              err.statusText,
+              JSON.stringify(err.body),
               err.status
             );
             return of();
           })
         );
+  }
+
+  private extractLine(body: any): string {
+    const jsonString = JSON.stringify(body);
+
+    const lineEndIndex = jsonString.indexOf('\n');
+    return lineEndIndex === -1 ? jsonString : jsonString.substring(0, lineEndIndex);
   }
 }
