@@ -14,10 +14,34 @@
   <button class="primary" type="submit">Add IP address</button>
 </form>
 
+<button (click)="getSuspiciousIps()">List blacklisted Ips</button>
+@if(suspiciousIpList != undefined) {
+  <table>
+    <tbody>
+    <tr *ngFor="let ip of suspiciousIpList | async">
+      <td>{{ip?.id}}</td>
+      <td>{{ip?.ip}}</td>
+    </tr>
+    </tbody>
+  </table>
+}
+
 <form [formGroup]="stolenCardForm" (submit)="addStolenCard()">
   <input type="text" placeholder="enter stolen card number" formControlName="number"><br>
   <button class="primary" type="submit">Add Card</button>
 </form>
+
+<button (click)="getStolenCards()">List stolen cards</button><br>
+@if(stolenCardList != undefined) {
+  <table>
+    <tbody>
+    <tr *ngFor="let card of stolenCardList | async">
+      <td>{{card?.id}}</td>
+      <td>{{card?.number}}</td>
+    </tr>
+    </tbody>
+  </table>
+}
 
 <button (click)="getTransactions()">List transactions</button>
 

@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-feedback',
   standalone: true,
-  imports: [],
+  imports: [
+    NgForOf
+  ],
   templateUrl: './feedback.component.html',
   styleUrl: './feedback.component.css'
 })

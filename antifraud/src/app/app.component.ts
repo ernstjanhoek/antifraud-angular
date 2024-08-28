@@ -7,14 +7,17 @@ import {AdminPanelComponent} from "./admin-panel/admin-panel.component";
 import {MerchantPanelComponent} from "./merchant-panel/merchant-panel.component";
 import {SupportPanelComponent} from "./support-panel/support-panel.component";
 import {NavigationComponent} from "./navigation/navigation.component";
+import {FeedbackComponent} from "./feedback/feedback.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RegisterUserComponent, CredentialComponent, LoginComponent, AdminPanelComponent, MerchantPanelComponent, SupportPanelComponent, NavigationComponent],
+  imports: [RouterOutlet, RegisterUserComponent, CredentialComponent, LoginComponent, AdminPanelComponent, MerchantPanelComponent, SupportPanelComponent, NavigationComponent, FeedbackComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+
 })
 export class AppComponent {
+
   title = 'antifraud';
 }

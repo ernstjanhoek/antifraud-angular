@@ -6,7 +6,5 @@
   <button class="primary" type="submit">Register</button>
 </form>
 @if(userData$ | async; as user) {
-<p>Hello {{ user.username }} </p>
-<p>Your name is {{ user.name }}</p>
-<p>Your authority is {{ user.role }}</p>
+  <p>Registered {{ user.username }} </p>
 }

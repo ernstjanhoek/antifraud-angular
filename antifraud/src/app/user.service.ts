@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserData } from "./user-data";
 import {HttpClient, HttpResponse} from "@angular/common/http";
-import {catchError, map, Observable, of, pipe} from "rxjs";
+import {catchError, map, Observable, of, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -37,27 +37,12 @@ export class UserService {
     this.currentUser = this.http.get<UserData>(this.url + "/api/auth/cred", {
         headers: {
           'Authorization': `Basic ${encodedCredentials}`
-        }, observe: 'response'
-      }
-    )
-      .pipe(map((res: HttpResponse<UserData>) => {
-          console.log(res.body?.id);
-          console.log(res.body?.username);
-          console.log(res.body?.role);
-
-          this.encodedCredentials = encodedCredentials;
-          console.log(this.encodedCredentials);
-
-          return {
-            id: res.body?.id ?? 0,
-            name: res.body?.name ?? 'Error',
-            username: res.body?.username ?? 'Error',
-            role: res.body?.role ?? 'Error'
-          } as UserData
         }
-      ));
-
-    console.log(this.currentUser.valueOf());
+      }
+    ).pipe(tap(
+      _ => {
+        this.encodedCredentials = encodedCredentials;
+      }));
   }
 
   registerUser(name_value: string, username_value: string, password_value: string): Observable<UserData> {
@@ -65,23 +50,8 @@ export class UserService {
       name: name_value,
       username: username_value,
       password: password_value
-    }, { observe: 'response'}).pipe(
-      map((response: HttpResponse<UserData>) => {
-        return {
-          id: response.body?.id ?? 0,
-          name: response.body?.name ?? '',
-          username: response.body?.username ?? '',
-          role: response.body?.role ?? ''
-        } as UserData
-      }),
-      catchError((err) => {
-        console.log(err);
-        return of({
-          role: "err",
-          id: 0,
-          name: "err",
-          username: "err"
-        } as UserData)
-      }));
+    }).pipe(tap(_ => {
+      console.log("registered new user");
+    }));
   }
 }

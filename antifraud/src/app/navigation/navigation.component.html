@@ -1,7 +1,17 @@
 <nav>
   <a routerLink="/login">Login  </a>
+
   <a routerLink="/register">Register </a>
-  <a routerLink="/admin">Admin  </a>
-  <a routerLink="/support">Support  </a>
-  <a routerLink="/merchant">Merchant</a>
+
+  @if(userService.currentUser | async; as user){
+    @if(user?.role === "ADMINISTRATOR" ) {
+      <a routerLink="/admin">Admin</a>
+    }
+    @if(user?.role === "SUPPORT" ) {
+      <a routerLink="/support">Support</a>
+    }
+    @if(user?.role === "MERCHANT" ) {
+      <a routerLink="/merchant">Merchant</a>
+    }
+  }
 </nav>

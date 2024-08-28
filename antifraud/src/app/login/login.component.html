@@ -6,7 +6,5 @@
 </form>
 
 @if(userService.currentUser | async; as user) {
-  <p>Hello {{ user?.username }} </p>
-  <p>Your name is {{ user?.name }}</p>
-  <p>Your role is {{ user?.role }}</p>
+  <p>Logged in as {{user?.role}} {{user?.username}}</p>
 }
