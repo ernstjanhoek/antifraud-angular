@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpHandlerFn, HttpRequest} from "@angular/common/http";
-
-interface FeedbackMessage {
-  message: string;
-  statusCode: number;
-}
+import {BehaviorSubject, Observable} from "rxjs";
+import {FeedbackMessage} from "./feedback-message";
 
 @Injectable({
   providedIn: 'root'
@@ -12,26 +8,24 @@ interface FeedbackMessage {
 
 export class FeedbackService {
   constructor() { }
-
   private messages: FeedbackMessage[] = [];
+  private messagesSubject: BehaviorSubject<FeedbackMessage[]> = new BehaviorSubject<FeedbackMessage[]>([]);
 
   addMessage(message: string, statusCode: number) {
     this.messages.push({ message, statusCode });
+    this.messagesSubject.next(this.getLastMessages());
   }
 
-  getMessages(): FeedbackMessage[] {
-    return this.messages;
+  getLastMessages(): FeedbackMessage[] {
+    return this.messages.slice(-10); // Return the last 10 messages
   }
 
-  // getTenLastMessages() {
-  //   let min: number = 0
-  //   if (this.messages.length - 10 > 0) {
-  //     min = this.messages.length - 10
-  //   }
-  //   return this.messages.slice(min, this.messages.length - 1);
-  // }
+  getMessagesObservable(): Observable<FeedbackMessage[]> {
+    return this.messagesSubject.asObservable();
+  }
 
-  clearMessages() {
-    this.messages = [];
+  resetMessages() {
+    this.messages = []; // Clear the messages array
+    this.messagesSubject.next([]); // Update the subject to notify subscribers
   }
 }

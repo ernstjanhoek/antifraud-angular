@@ -12,8 +12,7 @@ export class FeedbackInterceptor implements HttpInterceptor {
       return next.handle(req).pipe(
           tap(event => {
             if (event.type === HttpEventType.Response) {
-              console.log("from result1")
-              console.log(event);
+              console.log("from result")
               this.feedbackService.addMessage(
                 event.statusText,
                 event.status
@@ -22,7 +21,6 @@ export class FeedbackInterceptor implements HttpInterceptor {
           }),
           catchError((err, caught) => {
             console.log("from error")
-            console.log(err);
             this.feedbackService.addMessage(
               err.statusText,
               err.status

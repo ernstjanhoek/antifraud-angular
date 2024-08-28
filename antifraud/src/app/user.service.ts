@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserData } from "./user-data";
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {catchError, map, Observable, of, tap} from "rxjs";
+import {FeedbackService} from "./feedback.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserService {
   currentUser: Observable<UserData> | undefined;
   encodedCredentials: string | undefined;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private feedbackService: FeedbackService) {}
 
   checkCredentials(username: string, password: string)  {
     const encodedCredentials = btoa(`${username}:${password}`);
@@ -42,6 +43,7 @@ export class UserService {
     ).pipe(tap(
       _ => {
         this.encodedCredentials = encodedCredentials;
+        this.feedbackService.resetMessages();
       }));
   }
 
